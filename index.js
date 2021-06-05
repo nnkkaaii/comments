@@ -1,10 +1,26 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+var app = require('http').createServer(handler);
+var url = require('url');
+var statusCode = 200;
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+app.listen(9000);
+
+function handler (req, res) {
+
+	var data = '';
+	console.log(req.url);
+	console.log(url.parse(req.url,true));
+		var queryObject = url.parse(req.url,true).query;
+	if (req.method == "POST") {
+		req.on('data', function(chunk) {
+			data += chunk;
+		});
+		req.on('end', function() {
+			console.log('Received body data: ');
+			console.log(data.toString());
+		});
+	}
+	console.log("Query strings: " + JSON.stringify(queryObject));
+	res.writeHead(statusCode, {'Content-Type': 'text/plain'});
+	res.end();
+	console.log("Returning status code " + statusCode.toString());
+}
