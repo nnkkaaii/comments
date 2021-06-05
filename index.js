@@ -2,7 +2,7 @@ var app = require('http').createServer(handler);
 var url = require('url');
 var statusCode = 200;
 
-const PORT = process.env.PORT || 9000);
+const PORT = process.env.PORT || 9000;
 app.listen(PORT);
 
 function handler (req, res) {
