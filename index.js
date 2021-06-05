@@ -2,7 +2,8 @@ var app = require('http').createServer(handler);
 var url = require('url');
 var statusCode = 200;
 
-app.listen(9000);
+const PORT = process.env.PORT || 9000);
+app.listen(PORT);
 
 function handler (req, res) {
 
@@ -22,5 +23,7 @@ function handler (req, res) {
 	console.log("Query strings: " + JSON.stringify(queryObject));
 	res.writeHead(statusCode, {'Content-Type': 'text/plain'});
 	res.end();
+	console.log("APP ON PORT");
+	console.log(PORT);
 	console.log("Returning status code " + statusCode.toString());
 }
